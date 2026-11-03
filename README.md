@@ -1,5 +1,4 @@
 # Trello
-https://trello.com/invite/b/6abcdc4d7b1b63a6a9ae9a69/ATTIfdeca494cef53871362626024ec9d9aa8C3CC0C8/todolist-mads
-
+https://trello.com/invite/b/6ae1d838dbe9b2ac0ea358cf/ATTI3e3b6501e38d5254d8130b47f3efe588EC668A77/todolist-g2
 # Docker
-https://hub.docker.com/r/israelizqdo9/mads-todolist
+https://hub.docker.com/r/israelizqdo9/mads-todolist-equipo02
