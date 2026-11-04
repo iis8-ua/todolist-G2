@@ -445,4 +445,13 @@ public class UsuarioWebTest {
                 .andExpect(content().string(containsString("/usuarios/1/tareas")));
     }
 
+    @Test
+    public void usuarioNoLogueadoNoPuedeVerCuenta() throws Exception {
+        when(managerUserSession.usuarioLogeado()).thenReturn(null);
+
+        mockMvc.perform(get("/cuenta"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/login"));
+    }
+
 }
