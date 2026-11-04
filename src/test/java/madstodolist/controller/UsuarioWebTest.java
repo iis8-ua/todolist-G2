@@ -445,9 +445,21 @@ public class UsuarioWebTest {
                 .andExpect(content().string(containsString("/usuarios/1/tareas")));
     }
 
+    //para cuando no ha hecho login el usuario
     @Test
     public void usuarioNoLogueadoNoPuedeVerCuenta() throws Exception {
         when(managerUserSession.usuarioLogeado()).thenReturn(null);
+
+        mockMvc.perform(get("/cuenta"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/login"));
+    }
+
+    //para cuando no se encuentra al usuario
+    @Test
+    public void usuarioLogueadoNoEncontrado() throws Exception {
+        when(managerUserSession.usuarioLogeado()).thenReturn(1L);
+        when(usuarioService.findById(1L)).thenReturn(null);
 
         mockMvc.perform(get("/cuenta"))
                 .andExpect(status().is3xxRedirection())
