@@ -419,4 +419,30 @@ public class UsuarioWebTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/usuarios/2/tareas"));
     }
+
+    @Test
+    public void getCuentaMuestraDatosDelUsuario() throws Exception {
+        // GIVEN
+        UsuarioData usuario = new UsuarioData();
+        usuario.setId(1L);
+        usuario.setEmail("user@ua");
+        usuario.setNombre("Usuario Ejemplo");
+        usuario.setPassword("secreto");
+        usuario.setFechaNacimiento(new GregorianCalendar(1990, Calendar.MARCH, 15).getTime());
+
+        when(managerUserSession.usuarioLogeado()).thenReturn(1L);
+        when(usuarioService.findById(1L)).thenReturn(usuario);
+
+        // WHEN, THEN
+        mockMvc.perform(get("/cuenta"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(allOf(
+                        containsString("user@ua"),
+                        containsString("Usuario Ejemplo"),
+                        containsString("<span id=\"fechaNacimiento\">15/03/1990</span>")
+                )))
+                .andExpect(content().string(not(containsString("secreto"))))
+                .andExpect(content().string(containsString("/usuarios/1/tareas")));
+    }
+
 }
