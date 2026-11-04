@@ -2,6 +2,7 @@ package madstodolist.controller;
 
 import madstodolist.authentication.ManagerUserSession;
 import madstodolist.dto.UsuarioData;
+import madstodolist.model.Usuario;
 import madstodolist.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -79,5 +80,25 @@ public class UsuarioController {
         usuarioService.cambiarEstadoBloqueo(id);
 
         return "redirect:/registrados";
+    }
+
+    @GetMapping("/cuenta")
+    public String cuenta(Model model){
+        Long idUsuario = managerUserSession.usuarioLogeado();
+
+        //si no esta logueado se va al login
+        if (idUsuario == null) {
+           return "redirect:/login";
+        }
+
+        UsuarioData usuario=usuarioService.findById(idUsuario);
+        //si no se encuentra se va al login tambien
+        if(usuario==null){
+            return "redirect:/login";
+        }
+
+        model.addAttribute("usuario", usuario);
+        model.addAttribute("usuarioLogueado", usuario);
+        return "cuenta";
     }
 }

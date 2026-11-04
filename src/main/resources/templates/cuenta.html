@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: head (titulo='Mi cuenta')"></head>
+
+<body>
+    <div th:replace="fragments :: menu"></div>
+    <h2>Mi cuenta</h2>
+    <p>
+        <strong>Correo electrónico:</strong>
+        <span th:text="${usuario.email}"></span>
+    </p>
+    <p>
+        <strong>Nombre:</strong>
+        <span th:text="${usuario.nombre}"></span>
+    </p>
+    <p>
+        <strong>Fecha de nacimiento:</strong>
+        <span id="fechaNacimiento"
+              th:text="${usuario.fechaNacimiento != null ? #dates.format(usuario.fechaNacimiento, 'dd/MM/yyyy'): '-'}">
+        </span>
+    </p>
+    <a th:href="@{/usuarios/{id}/tareas(id=${usuarioLogueado.id})}"
+       class="btn btn-primary">Volver</a>
+    <div th:replace="fragments::javascript"/>
+</body>
+</html>
