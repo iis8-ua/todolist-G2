@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,6 +61,32 @@ public class UsuarioService {
             usuarioNuevo = usuarioRepository.save(usuarioNuevo);
             return modelMapper.map(usuarioNuevo, UsuarioData.class);
         }
+    }
+
+    @Transactional
+    public UsuarioData actualizarPerfil(Long idUsuario, String email, String nombre, Date fechaNacimiento) {
+        Usuario usuario = usuarioRepository.findById(idUsuario).orElse(null);
+
+        if (usuario == null) {
+            throw new UsuarioServiceException("No existe el usuario con id " + idUsuario);
+        }
+
+        if (email == null || email.trim().isEmpty()) {
+            throw new UsuarioServiceException("El correo electrónico no puede estar vacío");
+        }
+
+        String emailNormalizado = email.trim();
+        Usuario usuarioConEmail = usuarioRepository.findByEmail(emailNormalizado).orElse(null);
+        if (usuarioConEmail != null && !usuarioConEmail.getId().equals(idUsuario)) {
+            throw new UsuarioServiceException("El correo " + emailNormalizado + " ya está registrado");
+        }
+
+        usuario.setEmail(emailNormalizado);
+        usuario.setNombre(nombre);
+        usuario.setFechaNacimiento(fechaNacimiento);
+        usuario = usuarioRepository.save(usuario);
+
+        return modelMapper.map(usuario, UsuarioData.class);
     }
 
     @Transactional(readOnly = true)
