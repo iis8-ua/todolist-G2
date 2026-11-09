@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
+import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
@@ -295,5 +296,56 @@ public class UsuarioServiceTest {
         //assert
         assertThat(habilitado).isNotNull();
         assertThat(habilitado.isBloqueado()).isFalse();
+    }
+
+    @Test
+    public void actualizarPerfilGuardaCambios() {
+        Long id = addUsuarioBD();
+        Date fecha = java.sql.Date.valueOf("1995-06-20");
+
+        UsuarioData actualizado = usuarioService.actualizarPerfil(id, "nuevo@ua", "Nuevo Nombre", fecha);
+
+        assertThat(actualizado.getEmail()).isEqualTo("nuevo@ua");
+        assertThat(actualizado.getNombre()).isEqualTo("Nuevo Nombre");
+        assertThat(actualizado.getFechaNacimiento()).isEqualTo(fecha);
+
+        UsuarioData usuarioBD = usuarioService.findById(id);
+        assertThat(usuarioBD.getEmail()).isEqualTo("nuevo@ua");
+        assertThat(usuarioBD.getNombre()).isEqualTo("Nuevo Nombre");
+        assertThat(usuarioBD.getFechaNacimiento()).isEqualTo(fecha);
+    }
+
+    @Test
+    public void actualizarPerfilNoModificaPasswordRolNiBloqueo() {
+        UsuarioData usuario = new UsuarioData();
+        usuario.setEmail("user@ua");
+        usuario.setNombre("Usuario");
+        usuario.setPassword("123");
+        usuario.setAdministrador(true);
+        usuario.setBloqueado(true);
+
+        UsuarioData registrado = usuarioService.registrar(usuario);
+
+        usuarioService.actualizarPerfil(registrado.getId(), "nuevo@ua", "Nuevo", null);
+
+        UsuarioData actualizado = usuarioService.findById(registrado.getId());
+        assertThat(actualizado.getPassword()).isEqualTo("123");
+        assertThat(actualizado.isAdministrador()).isTrue();
+        assertThat(actualizado.isBloqueado()).isTrue();
+    }
+
+    @Test
+    public void actualizarPerfilConEmailDeOtroUsuarioLanzaExcepcion() {
+        Long id1 = addUsuarioBD();
+
+        UsuarioData usuario2 = new UsuarioData();
+        usuario2.setEmail("otro@ua");
+        usuario2.setPassword("123");
+        usuarioService.registrar(usuario2);
+
+        assertThatThrownBy(() -> usuarioService.actualizarPerfil(id1, "otro@ua", "Nombre", null)).isInstanceOf(UsuarioServiceException.class);
+
+        UsuarioData usuario1BD = usuarioService.findById(id1);
+        assertThat(usuario1BD.getEmail()).isEqualTo("user@ua");
     }
 }
