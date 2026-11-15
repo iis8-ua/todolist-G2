@@ -14,6 +14,16 @@
             <label for="titulo">Título de la tarea:</label>
             <input class="form-control" id="titulo" name="titulo" required th:field="*{titulo}" type="text"/>
         </div>
+        <div class="form-group">
+            <label for="prioridad">Prioridad:</label>
+            <select name="prioridad" id="prioridad" th:field="*{prioridad}">
+                <option value="">Ninguna</option>
+                <option value="BAJO">Baja</option>
+                <option value="MEDIO">Media</option>
+                <option value="ALTO">Alta</option>
+                <option value="CRITICO">Crítica</option>
+            </select>
+        </div>
         <button class="btn btn-primary" type="submit">Modificar tarea</button>
         <a class="btn btn-link" th:href="@{/usuarios/{id}/tareas(id=${tarea.usuarioId})}">Cancelar</a>
         </div>

@@ -25,9 +25,12 @@ public class Tarea implements Serializable {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
+    private Prioridad prioridad = null;
+
     // Constructor vacío necesario para JPA/Hibernate.
     // No debe usarse desde la aplicación.
-    public Tarea() {}
+    public Tarea() {
+    }
 
     // Al crear una tarea la asociamos automáticamente a un usuario
     public Tarea(Usuario usuario, String titulo) {
@@ -53,6 +56,14 @@ public class Tarea implements Serializable {
         this.titulo = titulo;
     }
 
+    public Prioridad getPrioridad() {
+        return prioridad;
+    }
+
+    public void setPrioridad(Prioridad prioridad) {
+        this.prioridad = prioridad;
+    }
+
     // Getters y setters de la relación muchos-a-uno con Usuario
 
     public Usuario getUsuario() {
@@ -63,7 +74,7 @@ public class Tarea implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         // Comprueba si el usuario ya está establecido
-        if(this.usuario != usuario) {
+        if (this.usuario != usuario) {
             this.usuario = usuario;
             // Añade la tarea a la lista de tareas del usuario
             usuario.addTarea(this);
@@ -72,8 +83,10 @@ public class Tarea implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Tarea tarea = (Tarea) o;
         if (id != null && tarea.id != null)
             // Si tenemos los ID, comparamos por ID
