@@ -2,6 +2,8 @@ package madstodolist.service;
 
 import madstodolist.dto.TareaData;
 import madstodolist.dto.UsuarioData;
+import madstodolist.model.Prioridad;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,7 +31,8 @@ public class TareaServiceTest {
     TareaService tareaService;
 
     // Método para inicializar los datos de prueba en la BD
-    // Devuelve un mapa con los identificadores del usuario y de la primera tarea añadida
+    // Devuelve un mapa con los identificadores del usuario y de la primera tarea
+    // añadida
     Map<String, Long> addUsuarioTareasBD() {
         UsuarioData usuario = new UsuarioData();
         usuario.setEmail("user@ua");
@@ -104,7 +107,8 @@ public class TareaServiceTest {
         tareaService.modificaTarea(tareaId, "Limpiar los cristales del coche");
 
         // THEN
-        // al buscar por el identificador en la base de datos se devuelve la tarea modificada
+        // al buscar por el identificador en la base de datos se devuelve la tarea
+        // modificada
 
         TareaData tareaBD = tareaService.findById(tareaId);
         assertThat(tareaBD.getTitulo()).isEqualTo("Limpiar los cristales del coche");
@@ -138,13 +142,41 @@ public class TareaServiceTest {
     }
 
     @Test
-    public void asignarEtiquetaATarea(){
+    public void asignarEtiquetaATarea() {
 
         Map<String, Long> ids = addUsuarioTareasBD();
         Long usuarioId = ids.get("usuarioId");
         Long tareaId = ids.get("tareaId");
 
-        assertThat(tareaService.usuarioContieneTarea(usuarioId,tareaId)).isTrue();
+        assertThat(tareaService.usuarioContieneTarea(usuarioId, tareaId)).isTrue();
+    }
+
+    @Test
+    public void tareaNuevaNoTienePrioridad() {
+        Long usuarioId = addUsuarioTareasBD().get("usuarioId");
+        TareaData nuevaTarea = tareaService.nuevaTareaUsuario(usuarioId, "Práctica 1 de MADS");
+
+        assertThat(nuevaTarea.getPrioridad()).isNull();
+    }
+
+    @Test
+    public void tareaCambiaPrioridad() {
+        Long usuarioId = addUsuarioTareasBD().get("usuarioId");
+        TareaData nuevaTarea = tareaService.nuevaTareaUsuario(usuarioId, "Práctica 1 de MADS");
+        nuevaTarea.setPrioridad(Prioridad.ALTO);
+
+        assertThat(nuevaTarea.getPrioridad()).isEqualTo(Prioridad.ALTO);
+    }
+
+    @Test
+    public void tareaPierdePrioridad() {
+        Long usuarioId = addUsuarioTareasBD().get("usuarioId");
+        TareaData nuevaTarea = tareaService.nuevaTareaUsuario(usuarioId, "Práctica 1 de MADS");
+        nuevaTarea.setPrioridad(Prioridad.ALTO);
+
+        nuevaTarea.setPrioridad(null);
+
+        assertThat(nuevaTarea.getPrioridad()).isNull();
     }
 
 }
