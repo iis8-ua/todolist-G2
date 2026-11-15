@@ -104,7 +104,7 @@ public class TareaServiceTest {
         // WHEN
         // modificamos la tarea correspondiente al identificador,
 
-        tareaService.modificaTarea(tareaId, "Limpiar los cristales del coche");
+        tareaService.modificaTarea(tareaId, "Limpiar los cristales del coche", null);
 
         // THEN
         // al buscar por el identificador en la base de datos se devuelve la tarea
