@@ -466,4 +466,75 @@ public class UsuarioWebTest {
                 .andExpect(redirectedUrl("/login"));
     }
 
+    @Test
+    public void getEditarPerfilMuestraDatosPrecargadosYCancelar() throws Exception {
+        UsuarioData usuario = new UsuarioData();
+        usuario.setId(1L);
+        usuario.setEmail("user@ua");
+        usuario.setNombre("Usuario Ejemplo");
+        usuario.setFechaNacimiento(new GregorianCalendar(1990, Calendar.MARCH, 15).getTime());
+
+        when(managerUserSession.usuarioLogeado()).thenReturn(1L);
+        when(usuarioService.findById(1L)).thenReturn(usuario);
+
+        mockMvc.perform(get("/cuenta/editar"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(allOf(
+                        containsString("Editar perfil"),
+                        containsString("value=\"user@ua\""),
+                        containsString("value=\"Usuario Ejemplo\""),
+                        containsString("value=\"15-03-1990\""),
+                        containsString("href=\"/cuenta\"")
+                )));
+    }
+
+    @Test
+    public void usuarioNoLogueadoNoPuedeEditarPerfil() throws Exception {
+        when(managerUserSession.usuarioLogeado()).thenReturn(null);
+
+        mockMvc.perform(get("/cuenta/editar"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/login"));
+
+        mockMvc.perform(post("/cuenta/editar")
+                        .param("email", "nuevo@ua")
+                        .param("nombre", "Nuevo"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/login"));
+    }
+
+    @Test
+    public void postEditarPerfilValidoRedirigeACuenta() throws Exception {
+        when(managerUserSession.usuarioLogeado()).thenReturn(1L);
+        when(usuarioService.findById(1L)).thenReturn(new UsuarioData());
+
+        mockMvc.perform(post("/cuenta/editar")
+                        .param("id", "2")
+                        .param("email", "nuevo@ua")
+                        .param("nombre", "Nuevo Nombre")
+                        .param("fechaNacimiento", "20-06-1995"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/cuenta"))
+                .andExpect(flash().attribute("mensaje", "Perfil actualizado correctamente"));
+    }
+
+    @Test
+    public void postEditarPerfilEmailInvalidoMuestraFormulario() throws Exception {
+        UsuarioData usuario = new UsuarioData();
+        usuario.setId(1L);
+        usuario.setNombre("Usuario");
+
+        when(managerUserSession.usuarioLogeado()).thenReturn(1L);
+        when(usuarioService.findById(1L)).thenReturn(usuario);
+
+        mockMvc.perform(post("/cuenta/editar")
+                        .param("email", "correo-invalido")
+                        .param("nombre", "Nombre introducido"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(allOf(
+                        containsString("El formato del correo debe ser usuario@dominio"),
+                        containsString("value=\"correo-invalido\""),
+                        containsString("value=\"Nombre introducido\"")
+                )));
+    }
 }
