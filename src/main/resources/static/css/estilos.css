@@ -1,0 +1,387 @@
+
+:root {
+    /* Paleta principal */
+    --color-primario: #0b5d8a;
+    --color-primario-oscuro: #084a6e;
+    --color-primario-suave: #e7f1f8;
+    --color-secundario: #2c3e50;
+
+    /* Fondos y texto */
+    --color-fondo: #f4f7fb;
+    --color-superficie: #ffffff;
+    --color-superficie-alterna: #eef3f8;
+    --color-texto: #1f2933;
+    --color-texto-suave: #52606d;
+    --color-texto-inverso: #ffffff;
+
+    /* Bordes */
+    --color-borde: #7b8fa3;
+    --color-borde-suave: #c9d6e2;
+
+    /* Estados */
+    --color-exito: #1e7b45;
+    --color-exito-oscuro: #155c33;
+    --color-exito-suave: #e8f5ec;
+    --color-peligro: #b42318;
+    --color-peligro-oscuro: #8f1b12;
+    --color-peligro-suave: #fdecea;
+    --color-aviso: #a15c00;
+    --color-aviso-oscuro: #7a4d00;
+    --color-aviso-suave: #fff4d6;
+
+    /* Foco y sombras */
+    --color-foco-primario: rgba(11, 93, 138, 0.5);
+    --color-foco-exito: rgba(30, 123, 69, 0.5);
+    --color-foco-peligro: rgba(180, 35, 24, 0.5);
+    --sombra-navbar: 0 0.125rem 0.5rem rgba(15, 23, 42, 0.18);
+}
+
+/* ------------------------------------------------------------
+   Base
+   ------------------------------------------------------------ */
+
+html {
+    background-color: var(--color-fondo);
+}
+
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--color-secundario);
+}
+
+a {
+    color: var(--color-primario);
+}
+
+a:hover {
+    color: var(--color-primario-oscuro);
+}
+
+a:not(.btn):focus-visible {
+    color: var(--color-primario-oscuro);
+    outline: 2px solid var(--color-primario);
+    outline-offset: 2px;
+}
+
+::selection {
+    color: var(--color-texto-inverso);
+    background-color: var(--color-primario);
+}
+
+/* ------------------------------------------------------------
+   Barra de navegación
+   ------------------------------------------------------------ */
+
+.navbar.bg-light {
+    background-color: var(--color-primario) !important;
+    box-shadow: var(--sombra-navbar);
+}
+
+.navbar.navbar-light .navbar-brand,
+.navbar.navbar-light .navbar-brand:hover,
+.navbar.navbar-light .navbar-brand:focus {
+    color: var(--color-texto-inverso);
+}
+
+.navbar.navbar-light .navbar-nav .nav-link {
+    color: var(--color-texto-inverso);
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+}
+
+.navbar.navbar-light .navbar-nav .nav-link:hover,
+.navbar.navbar-light .navbar-nav .nav-link:focus {
+    color: var(--color-texto-inverso);
+    background-color: var(--color-primario-oscuro);
+}
+
+.navbar a:focus-visible {
+    outline: 2px solid var(--color-texto-inverso);
+    outline-offset: -2px;
+}
+
+/* ------------------------------------------------------------
+   Menús desplegables
+   ------------------------------------------------------------ */
+
+.dropdown-menu {
+    background-color: var(--color-superficie);
+    border-color: var(--color-borde-suave);
+    box-shadow: var(--sombra-navbar);
+}
+
+.dropdown-item {
+    color: var(--color-texto);
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    color: var(--color-primario-oscuro);
+    background-color: var(--color-primario-suave);
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+    color: var(--color-texto-inverso);
+    background-color: var(--color-primario);
+}
+
+.navbar .dropdown-item:focus-visible {
+    outline: 2px solid var(--color-primario);
+    outline-offset: -2px;
+}
+
+/* ------------------------------------------------------------
+   Botones
+   ------------------------------------------------------------ */
+
+.btn-primary {
+    color: var(--color-texto-inverso);
+    background-color: var(--color-primario);
+    border-color: var(--color-primario);
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary.focus {
+    color: var(--color-texto-inverso);
+    background-color: var(--color-primario-oscuro);
+    border-color: var(--color-primario-oscuro);
+}
+
+.btn-primary:focus,
+.btn-primary.focus {
+    box-shadow: 0 0 0 0.2rem var(--color-foco-primario);
+}
+
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+    color: var(--color-texto-inverso);
+    background-color: var(--color-primario-oscuro);
+    border-color: var(--color-primario-oscuro);
+}
+
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem var(--color-foco-primario);
+}
+
+.btn-success {
+    color: var(--color-texto-inverso);
+    background-color: var(--color-exito);
+    border-color: var(--color-exito);
+}
+
+.btn-success:hover,
+.btn-success:focus,
+.btn-success.focus {
+    color: var(--color-texto-inverso);
+    background-color: var(--color-exito-oscuro);
+    border-color: var(--color-exito-oscuro);
+}
+
+.btn-success:focus,
+.btn-success.focus {
+    box-shadow: 0 0 0 0.2rem var(--color-foco-exito);
+}
+
+.btn-success:not(:disabled):not(.disabled):active,
+.btn-success:not(:disabled):not(.disabled).active,
+.show > .btn-success.dropdown-toggle {
+    color: var(--color-texto-inverso);
+    background-color: var(--color-exito-oscuro);
+    border-color: var(--color-exito-oscuro);
+}
+
+.btn-success:not(:disabled):not(.disabled):active:focus,
+.btn-success:not(:disabled):not(.disabled).active:focus,
+.show > .btn-success.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem var(--color-foco-exito);
+}
+
+.btn-danger {
+    color: var(--color-texto-inverso);
+    background-color: var(--color-peligro);
+    border-color: var(--color-peligro);
+}
+
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger.focus {
+    color: var(--color-texto-inverso);
+    background-color: var(--color-peligro-oscuro);
+    border-color: var(--color-peligro-oscuro);
+}
+
+.btn-danger:focus,
+.btn-danger.focus {
+    box-shadow: 0 0 0 0.2rem var(--color-foco-peligro);
+}
+
+.btn-danger:not(:disabled):not(.disabled):active,
+.btn-danger:not(:disabled):not(.disabled).active,
+.show > .btn-danger.dropdown-toggle {
+    color: var(--color-texto-inverso);
+    background-color: var(--color-peligro-oscuro);
+    border-color: var(--color-peligro-oscuro);
+}
+
+.btn-danger:not(:disabled):not(.disabled):active:focus,
+.btn-danger:not(:disabled):not(.disabled).active:focus,
+.show > .btn-danger.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem var(--color-foco-peligro);
+}
+
+.btn-link {
+    color: var(--color-primario);
+}
+
+.btn-link:hover,
+.btn-link:focus {
+    color: var(--color-primario-oscuro);
+    text-decoration: underline;
+}
+
+.btn-link:focus {
+    box-shadow: none;
+}
+
+.btn-link:focus-visible {
+    outline: 2px solid var(--color-primario);
+    outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------
+   Tablas
+   ------------------------------------------------------------ */
+
+.table {
+    color: var(--color-texto);
+    background-color: var(--color-superficie);
+}
+
+.table th,
+.table td {
+    border-color: var(--color-borde-suave);
+}
+
+.table thead th {
+    color: var(--color-secundario);
+    background-color: var(--color-primario-suave);
+    border-color: var(--color-borde-suave);
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: var(--color-superficie-alterna);
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+    background-color: var(--color-superficie);
+}
+
+.table-hover tbody tr:hover {
+    color: var(--color-texto);
+    background-color: var(--color-primario-suave);
+}
+
+/* ------------------------------------------------------------
+   Formularios
+   ------------------------------------------------------------ */
+
+label {
+    color: var(--color-texto);
+    font-weight: 500;
+}
+
+.form-control {
+    color: var(--color-texto);
+    background-color: var(--color-superficie);
+    border-color: var(--color-borde);
+}
+
+.form-control:focus {
+    color: var(--color-texto);
+    background-color: var(--color-superficie);
+    border-color: var(--color-primario);
+    box-shadow: 0 0 0 0.2rem var(--color-foco-primario);
+}
+
+.form-control::placeholder {
+    color: var(--color-texto-suave);
+    opacity: 1;
+}
+
+.form-check-input {
+    border-color: var(--color-borde);
+    accent-color: var(--color-primario);
+}
+
+.form-check-input:checked {
+    background-color: var(--color-primario);
+    border-color: var(--color-primario);
+}
+
+.form-check-input:focus {
+    border-color: var(--color-primario);
+    box-shadow: 0 0 0 0.2rem var(--color-foco-primario);
+}
+
+.form-check-label {
+    color: var(--color-texto);
+}
+
+/* ------------------------------------------------------------
+   Alertas y mensajes flash
+   ------------------------------------------------------------ */
+
+.alert-success {
+    color: var(--color-exito-oscuro);
+    background-color: var(--color-exito-suave);
+    border-color: var(--color-exito);
+}
+
+.alert-danger {
+    color: var(--color-peligro-oscuro);
+    background-color: var(--color-peligro-suave);
+    border-color: var(--color-peligro);
+}
+
+.alert-warning {
+    color: var(--color-aviso-oscuro);
+    background-color: var(--color-aviso-suave);
+    border-color: var(--color-aviso);
+}
+
+.alert-info {
+    color: var(--color-primario-oscuro);
+    background-color: var(--color-primario-suave);
+    border-color: var(--color-primario);
+}
+
+.alert .close {
+    color: inherit;
+    opacity: 0.85;
+    text-shadow: none;
+}
+
+.alert .close:not(:disabled):not(.disabled):hover,
+.alert .close:not(:disabled):not(.disabled):focus {
+    color: inherit;
+    opacity: 1;
+}
+
+.alert .close:focus-visible {
+    outline: 2px solid var(--color-texto);
+    outline-offset: 2px;
+}
