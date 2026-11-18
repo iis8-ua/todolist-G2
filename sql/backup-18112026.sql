@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict o5x8iQuQwe87ui543imkM6CvFDa0AUzKtTZFHaWhTh8Ac7ZHZfgX4UzkXyqNgMi
+\restrict Pk4U7UdcSQv7IIQv4WdHaiKGMqaeO9H0D9pVkDVB5aycY1PZDwmemjldHK6HZoT
 
 -- Dumped from database version 13.23 (Debian 13.23-1.pgdg13+1)
 -- Dumped by pg_dump version 13.23 (Debian 13.23-1.pgdg13+1)
@@ -187,8 +187,6 @@ COPY public.equipo_usuario (fk_equipo, fk_usuario) FROM stdin;
 2	2
 3	2
 4	5
-4	6
-5	5
 \.
 
 
@@ -200,8 +198,7 @@ COPY public.equipos (id, nombre) FROM stdin;
 1	Equipo1
 2	Equipo2
 3	Equipo3
-4	Proyecto P1
-5	Proyecto P2
+4	Equipo Backup 18-11-2026
 \.
 
 
@@ -217,8 +214,7 @@ COPY public.tareas (id, titulo, usuario_id, prioridad) FROM stdin;
 5	Tarea2	3	\N
 6	Tarea	3	\N
 7	Tarea	2	\N
-8	Lavar coche	5	\N
-9	Renovar DNI	5	\N
+8	Tarea creada para el backup del 18-11-2026	5	2
 \.
 
 
@@ -231,8 +227,7 @@ COPY public.usuarios (id, administrador, bloqueado, email, fecha_nacimiento, nom
 2	f	f	user2@ua.es	\N	user2	user2
 3	f	f	user1@ua.es	\N	User	123
 4	f	f	user@ua.es	\N	user	123
-5	f	f	user@ua	\N	Usuario Ejemplo	123
-6	f	f	maria@ua	\N	María García	123
+5	f	f	backup18112026@ua	\N	Usuario Backup 18-11-2026	123
 \.
 
 
@@ -240,21 +235,21 @@ COPY public.usuarios (id, administrador, bloqueado, email, fecha_nacimiento, nom
 -- Name: equipos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mads
 --
 
-SELECT pg_catalog.setval('public.equipos_id_seq', 5, true);
+SELECT pg_catalog.setval('public.equipos_id_seq', 4, true);
 
 
 --
 -- Name: tareas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mads
 --
 
-SELECT pg_catalog.setval('public.tareas_id_seq', 9, true);
+SELECT pg_catalog.setval('public.tareas_id_seq', 8, true);
 
 
 --
 -- Name: usuarios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mads
 --
 
-SELECT pg_catalog.setval('public.usuarios_id_seq', 6, true);
+SELECT pg_catalog.setval('public.usuarios_id_seq', 5, true);
 
 
 --
@@ -317,5 +312,5 @@ ALTER TABLE ONLY public.equipo_usuario
 -- PostgreSQL database dump complete
 --
 
-\unrestrict o5x8iQuQwe87ui543imkM6CvFDa0AUzKtTZFHaWhTh8Ac7ZHZfgX4UzkXyqNgMi
+\unrestrict Pk4U7UdcSQv7IIQv4WdHaiKGMqaeO9H0D9pVkDVB5aycY1PZDwmemjldHK6HZoT
 
