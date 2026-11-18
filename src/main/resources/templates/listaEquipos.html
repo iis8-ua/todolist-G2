@@ -1,31 +1,49 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments :: head(titulo='Equipos')"></head>
 
 <body>
 
-<div class="container-fluid">
-    <div th:replace="fragments :: menu"></div>
+<div th:replace="fragments :: iconos"></div>
+<div th:replace="fragments :: menu"></div>
 
-    <div class="row mt-3">
-        <div class="col">
-            <h2>Equipos</h2>
+<div class="container py-4">
+
+    <div class="page-header">
+        <h2>Equipos</h2>
+        <p class="page-subtitle mb-0">Consulta los equipos disponibles y gestiona tu participación.</p>
+    </div>
+
+    <div class="flash-messages">
+        <div class="alert alert-success alert-dismissible fade show" role="alert"
+             th:if="${!#strings.isEmpty(mensaje)}">
+            <span th:text="${mensaje}"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert"
+             th:if="${!#strings.isEmpty(error)}">
+            <span th:text="${error}"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
     </div>
 
-    <div class="row mt-3">
-        <div class="col">
-
-            <table class="table table-striped">
+    <div class="panel table-panel" th:if="${!#lists.isEmpty(equipos)}">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover mb-0">
 
                 <thead>
                 <tr>
-                    <th>Identificador</th>
+                    <th class="col-id">Identificador</th>
                     <th>Nombre</th>
-                    <th>Miembros</th>
-                    <th>Participación</th>
-                    <th th:if="${usuarioLogueado.administrador}">Gestión</th>
+                    <th class="col-central">Miembros</th>
+                    <th class="col-central">Participación</th>
+                    <th class="col-central" th:if="${usuarioLogueado.administrador}">Gestión</th>
                 </tr>
                 </thead>
 
@@ -33,7 +51,7 @@
 
                 <tr th:each="equipo : ${equipos}">
 
-                    <td th:text="${equipo.id}"></td>
+                    <td class="col-id" th:text="${equipo.id}"></td>
 
                     <td>
                         <a th:href="@{/equipos/{id}(id=${equipo.id})}"
@@ -42,43 +60,60 @@
                         </a>
                     </td>
 
-                    <td>
+                    <td class="col-central">
                         <a class="btn btn-primary btn-xs"
                            th:href="@{/equipos/{id}(id=${equipo.id})}">
+                            <svg class="icono" aria-hidden="true" focusable="false">
+                                <use href="#icono-ver"></use>
+                            </svg>
                             Ver miembros
                         </a>
                     </td>
 
-                    <td>
-                        <!-- so esta ya en el equipo se le muestra el boton de salir -->
+                    <td class="col-central">
+                        <!-- Si ya está en el equipo se le muestra el botón de salir -->
                         <form th:if="${#lists.contains(idsEquiposUsuario, equipo.id)}"
                               th:action="@{/equipos/{id}/salir(id=${equipo.id})}"
                               method="post">
                             <button type="submit" class="btn btn-danger btn-xs">
+                                <svg class="icono" aria-hidden="true" focusable="false">
+                                    <use href="#icono-salir"></use>
+                                </svg>
                                 Salir del equipo
                             </button>
                         </form>
 
-                        <!-- si no esta se le muestra el de unirse -->
+                        <!-- Si no está se le muestra el de unirse -->
                         <form th:unless="${#lists.contains(idsEquiposUsuario, equipo.id)}"
                               th:action="@{/equipos/{id}/unirse(id=${equipo.id})}"
                               method="post">
                             <button type="submit" class="btn btn-success btn-xs">
+                                <svg class="icono" aria-hidden="true" focusable="false">
+                                    <use href="#icono-unirse"></use>
+                                </svg>
                                 Unirme
                             </button>
                         </form>
                     </td>
 
-                    <td th:if="${usuarioLogueado.administrador}">
-                        <a class="btn btn-primary btn-xs"
-                           th:href="@{/equipos/{id}/editar(id=${equipo.id})}">
-                            Cambiar nombre
-                        </a>
+                    <td class="col-central" th:if="${usuarioLogueado.administrador}">
+                        <div class="table-actions">
+                            <a class="btn btn-primary btn-xs"
+                               th:href="@{/equipos/{id}/editar(id=${equipo.id})}">
+                                <svg class="icono" aria-hidden="true" focusable="false">
+                                    <use href="#icono-editar"></use>
+                                </svg>
+                                Cambiar nombre
+                            </a>
 
-                        <button class="btn btn-danger btn-xs" onmouseover="" style="cursor: pointer;"
-                                th:onclick="'borrarEquipo(\'/equipos/' + ${equipo.id} + '\')'">
-                            Eliminar
-                        </button>
+                            <button class="btn btn-danger btn-xs"
+                                    th:onclick="'borrarEquipo(\'/equipos/' + ${equipo.id} + '\')'">
+                                <svg class="icono" aria-hidden="true" focusable="false">
+                                    <use href="#icono-borrar"></use>
+                                </svg>
+                                Eliminar
+                            </button>
+                        </div>
                     </td>
 
                 </tr>
@@ -86,36 +121,20 @@
                 </tbody>
 
             </table>
-
-            <p th:if="${#lists.isEmpty(equipos)}">
-                No hay equipos dados de alta.
-            </p>
-
-            <p>
-                <a class="btn btn-primary" th:href="@{/equipos/nueva}">Nuevo equipo</a>
-            </p>
-
         </div>
     </div>
 
-    <div class="row mt-2">
-        <div class="col">
-            <div class="alert alert-success alert-dismissible fade show" role="alert"
-                 th:if="${!#strings.isEmpty(mensaje)}">
-                <span th:text="${mensaje}"></span>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+    <p th:if="${#lists.isEmpty(equipos)}" class="empty-state">
+        No hay equipos dados de alta.
+    </p>
 
-            <div class="alert alert-danger alert-dismissible fade show" role="alert"
-                 th:if="${!#strings.isEmpty(error)}">
-                <span th:text="${error}"></span>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </div>
+    <div class="page-actions">
+        <a class="btn btn-primary" th:href="@{/equipos/nueva}">
+            <svg class="icono" aria-hidden="true" focusable="false">
+                <use href="#icono-nuevo"></use>
+            </svg>
+            Nuevo equipo
+        </a>
     </div>
 
 </div>

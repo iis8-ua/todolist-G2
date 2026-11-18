@@ -1,53 +1,65 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments :: head (titulo='Editar perfil')"></head>
 
 <body>
-<div class="container-fluid">
-    <div th:replace="fragments :: menu"></div>
 
-    <div class="row mt-3">
-        <div class="col">
-            <h2>Editar perfil</h2>
-        </div>
+<div th:replace="fragments :: iconos"></div>
+<div th:replace="fragments :: menu"></div>
+
+<div class="container py-4">
+
+    <div class="page-header">
+        <h2>Editar perfil</h2>
+        <p class="page-subtitle mb-0">Actualiza los datos personales de tu cuenta.</p>
     </div>
 
-    <div class="row mt-3">
-        <div class="col-6">
-            <form method="post" th:action="@{/cuenta/editar}" th:object="${perfilData}">
-                <div class="form-group">
-                    <label for="email">Correo electrónico</label>
-                    <input class="form-control" id="email" name="email" type="text" th:field="*{email}" required/>
-                </div>
+    <div class="form-card">
+        <form method="post" th:action="@{/cuenta/editar}" th:object="${perfilData}">
+            <div class="form-group">
+                <label for="email">Correo electrónico</label>
+                <input class="form-control" id="email" name="email" type="text" th:field="*{email}" required/>
+            </div>
 
-                <div class="form-group">
-                    <label for="nombre">Nombre</label>
-                    <input class="form-control" id="nombre" name="nombre" type="text" th:field="*{nombre}"/>
-                </div>
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input class="form-control" id="nombre" name="nombre" type="text" th:field="*{nombre}"/>
+            </div>
 
-                <div class="form-group">
-                    <label for="fechaNacimiento">Fecha de nacimiento</label>
-                    <input class="form-control" id="fechaNacimiento" name="fechaNacimiento" type="text" placeholder="dd-mm-aaaa" th:field="*{fechaNacimiento}"/>
-                </div>
+            <div class="form-group">
+                <label for="fechaNacimiento">Fecha de nacimiento</label>
+                <input class="form-control" id="fechaNacimiento" name="fechaNacimiento" type="text"
+                       placeholder="dd-mm-aaaa" th:field="*{fechaNacimiento}"/>
+            </div>
 
-                <button type="submit" class="btn btn-primary">Guardar cambios</button>
-                <a class="btn btn-link" th:href="@{/cuenta}">Cancelar</a>
-            </form>
-        </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    <svg class="icono" aria-hidden="true" focusable="false">
+                        <use href="#icono-guardar"></use>
+                    </svg>
+                    Guardar cambios
+                </button>
+                <a class="btn btn-link" th:href="@{/cuenta}">
+                    <svg class="icono" aria-hidden="true" focusable="false">
+                        <use href="#icono-cancelar"></use>
+                    </svg>
+                    Cancelar
+                </a>
+            </div>
+        </form>
     </div>
 
-    <div class="row mt-3">
-        <div class="col-6" th:object="${perfilData}">
-            <ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
-                <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
-            </ul>
+    <div class="flash-messages mt-3" th:object="${perfilData}">
+        <ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+            <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+        </ul>
 
-            <ul th:if="${error != null}" class="alert alert-danger">
-                <li th:text="${error}"></li>
-            </ul>
-        </div>
+        <ul th:if="${error != null}" class="alert alert-danger">
+            <li th:text="${error}"></li>
+        </ul>
     </div>
+
 </div>
 
 <div th:replace="fragments::javascript"/>

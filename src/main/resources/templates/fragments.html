@@ -9,71 +9,98 @@
 </head>
 
 <nav th:fragment="menuAnonimo" class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
 
-    <a class="navbar-brand" th:href="@{/about}">
-        ToDoList
-    </a>
-
-    <div class="navbar-nav ml-auto">
-        <a class="nav-item nav-link" th:href="@{/login}">
-            Login
+        <a class="navbar-brand" th:href="@{/about}">
+            <svg class="icono icono-marca" aria-hidden="true" focusable="false">
+                <use href="#icono-guardar"></use>
+            </svg>
+            ToDoList
         </a>
 
-        <a class="nav-item nav-link" th:href="@{/registro}">
-            Registro
-        </a>
+        <div class="navbar-nav ml-auto">
+            <a class="nav-item nav-link" th:href="@{/login}">
+                <svg class="icono" aria-hidden="true" focusable="false">
+                    <use href="#icono-login"></use>
+                </svg>
+                Login
+            </a>
+
+            <a class="nav-item nav-link" th:href="@{/registro}">
+                <svg class="icono" aria-hidden="true" focusable="false">
+                    <use href="#icono-unirse"></use>
+                </svg>
+                Registro
+            </a>
+        </div>
     </div>
-
 </nav>
 
 <nav th:fragment="menu" class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
 
-    <a class="navbar-brand" th:href="@{/about}">
-        ToDoList
-    </a>
-
-    <div class="navbar-nav">
-        <a class="nav-item nav-link"
-           th:href="@{/usuarios/{id}/tareas(id=${usuarioLogueado.id})}">
-            Tareas
+        <a class="navbar-brand" th:href="@{/about}">
+            <svg class="icono icono-marca" aria-hidden="true" focusable="false">
+                <use href="#icono-guardar"></use>
+            </svg>
+            ToDoList
         </a>
 
-        <a class="nav-item nav-link" th:href="@{/equipos}">
-            Equipos
-        </a>
-    </div>
-
-    <div class="navbar-nav ml-auto">
-        <div class="nav-item dropdown">
-
-            <a class="nav-link dropdown-toggle"
-               href="#"
-               id="usuarioDropdown"
-               role="button"
-               data-toggle="dropdown"
-               aria-haspopup="true"
-               aria-expanded="false"
-               th:text="${usuarioLogueado.nombre}">
-                Usuario
+        <div class="navbar-nav">
+            <a class="nav-item nav-link"
+               th:href="@{/usuarios/{id}/tareas(id=${usuarioLogueado.id})}">
+                <svg class="icono" aria-hidden="true" focusable="false">
+                    <use href="#icono-tareas"></use>
+                </svg>
+                Tareas
             </a>
 
-            <div class="dropdown-menu dropdown-menu-right"
-                 aria-labelledby="usuarioDropdown">
+            <a class="nav-item nav-link" th:href="@{/equipos}">
+                <svg class="icono" aria-hidden="true" focusable="false">
+                    <use href="#icono-equipos"></use>
+                </svg>
+                Equipos
+            </a>
+        </div>
 
-                <a class="dropdown-item" th:href="@{/cuenta}">
-                    Cuenta
+        <div class="navbar-nav ml-auto">
+            <div class="nav-item dropdown">
+
+                <a class="nav-link dropdown-toggle"
+                   href="#"
+                   id="usuarioDropdown"
+                   role="button"
+                   data-toggle="dropdown"
+                   aria-haspopup="true"
+                   aria-expanded="false">
+                    <svg class="icono" aria-hidden="true" focusable="false">
+                        <use href="#icono-cuenta"></use>
+                    </svg>
+                    <span th:text="${usuarioLogueado.nombre}">Usuario</span>
                 </a>
 
-                <a class="dropdown-item"
-                   th:href="@{/logout}"
-                   th:text="'Cerrar sesión ' + ${usuarioLogueado.nombre}">
-                    Cerrar sesión
-                </a>
+                <div class="dropdown-menu dropdown-menu-right"
+                     aria-labelledby="usuarioDropdown">
 
+                    <a class="dropdown-item" th:href="@{/cuenta}">
+                        <svg class="icono" aria-hidden="true" focusable="false">
+                            <use href="#icono-cuenta"></use>
+                        </svg>
+                        Cuenta
+                    </a>
+
+                    <a class="dropdown-item"
+                       th:href="@{/logout}">
+                        <svg class="icono" aria-hidden="true" focusable="false">
+                            <use href="#icono-salir"></use>
+                        </svg>
+                        <span th:text="'Cerrar sesión ' + ${usuarioLogueado.nombre}">Cerrar sesión</span>
+                    </a>
+
+                </div>
             </div>
         </div>
     </div>
-
 </nav>
 
 <div th:fragment="javascript">
@@ -81,5 +108,70 @@
     <script th:src="@{/js/popper.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
 </div>
+
+<!-- Iconos SVG reutilizables (Bootstrap Icons, licencia MIT) -->
+<svg th:fragment="iconos" xmlns="http://www.w3.org/2000/svg" class="iconos-sprite" aria-hidden="true" focusable="false">
+    <symbol id="icono-tareas" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5zM3 3H2v1h1z"/>
+        <path d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1z"/>
+        <path fill-rule="evenodd" d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5zM2 7h1v1H2zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm1 .5H2v1h1z"/>
+    </symbol>
+    <symbol id="icono-equipos" viewBox="0 0 16 16">
+        <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4"/>
+    </symbol>
+    <symbol id="icono-editar" viewBox="0 0 16 16">
+        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+    </symbol>
+    <symbol id="icono-borrar" viewBox="0 0 16 16">
+        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+    </symbol>
+    <symbol id="icono-ver" viewBox="0 0 16 16">
+        <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+        <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+    </symbol>
+    <symbol id="icono-unirse" viewBox="0 0 16 16">
+        <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+        <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5"/>
+    </symbol>
+    <symbol id="icono-salir" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+    </symbol>
+    <symbol id="icono-bloquear" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M8 0a4 4 0 0 1 4 4v2.05a2.5 2.5 0 0 1 2 2.45v5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 13.5v-5a2.5 2.5 0 0 1 2-2.45V4a4 4 0 0 1 4-4M4.5 7A1.5 1.5 0 0 0 3 8.5v5A1.5 1.5 0 0 0 4.5 15h7a1.5 1.5 0 0 0 1.5-1.5v-5A1.5 1.5 0 0 0 11.5 7zM8 1a3 3 0 0 0-3 3v2h6V4a3 3 0 0 0-3-3"/>
+    </symbol>
+    <symbol id="icono-habilitar" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M12 0a4 4 0 0 1 4 4v2.5h-1V4a3 3 0 1 0-6 0v2h.5A2.5 2.5 0 0 1 12 8.5v5A2.5 2.5 0 0 1 9.5 16h-7A2.5 2.5 0 0 1 0 13.5v-5A2.5 2.5 0 0 1 2.5 6H8V4a4 4 0 0 1 4-4M2.5 7A1.5 1.5 0 0 0 1 8.5v5A1.5 1.5 0 0 0 2.5 15h7a1.5 1.5 0 0 0 1.5-1.5v-5A1.5 1.5 0 0 0 9.5 7z"/>
+    </symbol>
+    <symbol id="icono-nuevo" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+    </symbol>
+    <symbol id="icono-guardar" viewBox="0 0 16 16">
+        <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/>
+    </symbol>
+    <symbol id="icono-cancelar" viewBox="0 0 16 16">
+        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+    </symbol>
+    <symbol id="icono-volver" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+    </symbol>
+    <symbol id="icono-cuenta" viewBox="0 0 16 16">
+        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+    </symbol>
+    <symbol id="icono-acerca" viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+    </symbol>
+    <symbol id="icono-login" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"/>
+        <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+    </symbol>
+    <symbol id="icono-inicio" viewBox="0 0 16 16">
+        <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
+    </symbol>
+</svg>
 
 </html>
