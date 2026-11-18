@@ -1,10 +1,12 @@
-<!-- Conflicto corregido -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments :: head (titulo='Acerca de')"></head>
 
 <body>
+
+<div th:replace="fragments :: iconos"></div>
+
 <div th:if="${usuario != null}">
     <div th:replace="fragments :: menu"></div>
 </div>
@@ -13,14 +15,26 @@
     <div th:replace="fragments :: menuAnonimo"></div>
 </div>
 
-<div class="container-fluid">
-    <div class="container-fluid">
+<div class="container py-5">
+
+    <div class="page-header">
         <h1>ToDoList</h1>
-        <ul>
-            <li>Desarrollada por Israel Izquierdo Sanchís, Marcos González Fernández, Danil Launov Draganov, Youssef Serroukh Afellad </li>
-            <li>Versión 1.3.0-SNAPSHOT</li>
-            <li>Fecha de release: 28/10/2026</li>
-        </ul>
+        <p class="page-subtitle mb-0">Aplicación para organizar tareas y trabajar en equipo.</p>
+    </div>
+
+    <div class="panel info-card text-center">
+        <p class="font-weight-bold mb-2">Desarrollada por:</p>
+        <p class="mb-4">
+            Israel Izquierdo Sanchís, Marcos González Fernández,
+            Danil Launov Draganov y Youssef Serroukh Afellad
+        </p>
+
+        <p class="mb-1">
+            <strong>Versión:</strong> 1.3.0
+        </p>
+        <p class="mb-0">
+            <strong>Fecha de release:</strong> 28/10/2026
+        </p>
     </div>
 
 </div>

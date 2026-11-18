@@ -1,23 +1,54 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments :: head (titulo='Login')"></head>
+<head th:replace="fragments :: head (titulo='Editar tarea')"></head>
 
 <body>
-<div class="container-fluid">
-    <div th:replace="fragments :: menu"></div>
-    <h2 th:text="'Modificación de la tarea ' + ${tarea.getId()}"></h2>
 
-    <form method="post" th:action="@{/tareas/{id}/editar(id=${tarea.id})}" th:object="${tareaData}">
-        <div class="col-6">
-        <div class="form-group">
-            <label for="titulo">Título de la tarea:</label>
-            <input class="form-control" id="titulo" name="titulo" required th:field="*{titulo}" type="text"/>
-        </div>
-        <button class="btn btn-primary" type="submit">Modificar tarea</button>
-        <a class="btn btn-link" th:href="@{/usuarios/{id}/tareas(id=${tarea.usuarioId})}">Cancelar</a>
-        </div>
-    </form>
+<div th:replace="fragments :: iconos"></div>
+<div th:replace="fragments :: menu"></div>
+
+<div class="container py-4">
+
+    <div class="page-header">
+        <h2 th:text="'Modificación de la tarea ' + ${tarea.getId()}">Modificación de la tarea</h2>
+        <p class="page-subtitle mb-0">Actualiza el título o la prioridad de la tarea.</p>
+    </div>
+
+    <div class="form-card">
+        <form method="post" th:action="@{/tareas/{id}/editar(id=${tarea.id})}" th:object="${tareaData}">
+            <div class="form-group">
+                <label for="titulo">Título de la tarea:</label>
+                <input class="form-control" id="titulo" name="titulo" required th:field="*{titulo}" type="text"/>
+            </div>
+            <div class="form-group">
+                <label for="prioridad">Prioridad:</label>
+                <select class="form-control" name="prioridad" id="prioridad" th:field="*{prioridad}">
+                    <option value="">Ninguna</option>
+                    <option value="BAJO">Baja</option>
+                    <option value="MEDIO">Media</option>
+                    <option value="ALTO">Alta</option>
+                    <option value="CRITICO">Crítica</option>
+                </select>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit">
+                    <svg class="icono" aria-hidden="true" focusable="false">
+                        <use href="#icono-guardar"></use>
+                    </svg>
+                    Modificar tarea
+                </button>
+                <a class="btn btn-link" th:href="@{/usuarios/{id}/tareas(id=${tarea.usuarioId})}">
+                    <svg class="icono" aria-hidden="true" focusable="false">
+                        <use href="#icono-cancelar"></use>
+                    </svg>
+                    Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+
 </div>
 
 <div th:replace="fragments::javascript"/>

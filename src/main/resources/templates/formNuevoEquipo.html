@@ -1,36 +1,49 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments :: head (titulo='Nuevo equipo')"></head>
 
 <body>
-<div th:replace="fragments :: menu"></div>
-<div class="container-fluid">
 
-    <div class="row mt-3">
-        <div class="col">
-            <h2>Nuevo equipo</h2>
-        </div>
+<div th:replace="fragments :: iconos"></div>
+<div th:replace="fragments :: menu"></div>
+
+<div class="container py-4">
+
+    <div class="page-header">
+        <h2>Nuevo equipo</h2>
+        <p class="page-subtitle mb-0">Crea un equipo para compartir tareas con otras personas.</p>
     </div>
 
-    <form method="post" th:action="@{/equipos/nueva}" th:object="${equipoData}">
-        <div class="col-6">
+    <div class="form-card">
+        <form method="post" th:action="@{/equipos/nueva}" th:object="${equipoData}">
             <div class="form-group">
                 <label for="nombre">Nombre del equipo:</label>
                 <input class="form-control" id="nombre" name="nombre" required
                        th:field="*{nombre}" type="text"/>
             </div>
-            <button class="btn btn-primary" type="submit">Crear equipo</button>
-            <a class="btn btn-link" th:href="@{/equipos}">Cancelar</a>
-        </div>
-    </form>
 
-    <div class="row mt-3">
-        <div class="col-6">
-            <ul th:if="${error != null}" class="alert alert-danger">
-                <li th:text="${error}"></li>
-            </ul>
-        </div>
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit">
+                    <svg class="icono" aria-hidden="true" focusable="false">
+                        <use href="#icono-guardar"></use>
+                    </svg>
+                    Crear equipo
+                </button>
+                <a class="btn btn-link" th:href="@{/equipos}">
+                    <svg class="icono" aria-hidden="true" focusable="false">
+                        <use href="#icono-cancelar"></use>
+                    </svg>
+                    Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <div class="flash-messages mt-3">
+        <ul th:if="${error != null}" class="alert alert-danger">
+            <li th:text="${error}"></li>
+        </ul>
     </div>
 
 </div>

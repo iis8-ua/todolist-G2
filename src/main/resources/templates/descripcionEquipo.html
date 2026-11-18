@@ -1,107 +1,107 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments :: head(titulo='Descripción de equipo')"></head>
 
 <body>
 
-<div class="container-fluid">
-    <div th:replace="fragments :: menu"></div>
+<div th:replace="fragments :: iconos"></div>
+<div th:replace="fragments :: menu"></div>
 
-    <div class="row mt-3">
-        <div class="col">
-            <h2 th:text="'Equipo: ' + ${equipo.nombre}"></h2>
+<div class="container py-4">
+
+    <div class="page-header">
+        <h2 th:text="'Equipo: ' + ${equipo.nombre}">Equipo</h2>
+        <p class="page-subtitle mb-0">Consulta los datos del equipo y sus miembros.</p>
+    </div>
+
+    <div class="flash-messages">
+        <div class="alert alert-success alert-dismissible fade show" role="alert"
+             th:if="${!#strings.isEmpty(mensaje)}">
+            <span th:text="${mensaje}"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert"
+             th:if="${!#strings.isEmpty(error)}">
+            <span th:text="${error}"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
     </div>
 
-    <div class="row mt-2">
-        <div class="col">
-            <div class="alert alert-success alert-dismissible fade show" role="alert"
-                 th:if="${!#strings.isEmpty(mensaje)}">
-                <span th:text="${mensaje}"></span>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+    <div class="panel info-card">
+        <dl class="row info-list mb-0">
+            <dt class="col-sm-4">Identificador</dt>
+            <dd class="col-sm-8" th:text="${equipo.id}"></dd>
 
-            <div class="alert alert-danger alert-dismissible fade show" role="alert"
-                 th:if="${!#strings.isEmpty(error)}">
-                <span th:text="${error}"></span>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </div>
+            <dt class="col-sm-4">Nombre</dt>
+            <dd class="col-sm-8" th:text="${equipo.nombre}"></dd>
+        </dl>
     </div>
 
-    <div class="row mt-3">
-        <div class="col">
-            <p>
-                <strong>Identificador:</strong>
-                <span th:text="${equipo.id}"></span>
-            </p>
-        </div>
+    <div class="page-header mt-5">
+        <h3>Miembros del equipo</h3>
     </div>
 
-    <div class="row mt-3">
-        <div class="col">
-            <h3>Miembros del equipo</h3>
-
-            <table class="table table-striped" th:if="${!#lists.isEmpty(usuarios)}">
-
+    <div class="panel table-panel" th:if="${!#lists.isEmpty(usuarios)}">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover mb-0">
                 <thead>
                 <tr>
-                    <th>Identificador</th>
+                    <th class="col-id">Identificador</th>
                     <th>Correo electrónico</th>
                     <th>Nombre</th>
                 </tr>
                 </thead>
 
                 <tbody>
-
                 <tr th:each="usuario : ${usuarios}">
-                    <td th:text="${usuario.id}"></td>
+                    <td class="col-id" th:text="${usuario.id}"></td>
                     <td th:text="${usuario.email}"></td>
                     <td th:text="${usuario.nombre}"></td>
                 </tr>
-
                 </tbody>
-
             </table>
-
-            <p th:if="${#lists.isEmpty(usuarios)}">
-                Este equipo no tiene miembros.
-            </p>
-
         </div>
     </div>
 
-    <div class="row mt-3">
-        <div class="col">
-            <form th:if="${pertenece}"
-                  th:action="@{/equipos/{id}/salir(id=${equipo.id})}"
-                  method="post">
-                <button type="submit" class="btn btn-danger">
-                    Salir del equipo
-                </button>
-            </form>
+    <p th:if="${#lists.isEmpty(usuarios)}" class="empty-state">
+        Este equipo no tiene miembros.
+    </p>
 
-            <form th:unless="${pertenece}"
-                  th:action="@{/equipos/{id}/unirse(id=${equipo.id})}"
-                  method="post">
-                <button type="submit" class="btn btn-success">
-                    Unirme al equipo
-                </button>
-            </form>
-        </div>
-    </div>
+    <div class="page-actions">
+        <form th:if="${pertenece}"
+              th:action="@{/equipos/{id}/salir(id=${equipo.id})}"
+              method="post">
+            <button type="submit" class="btn btn-danger">
+                <svg class="icono" aria-hidden="true" focusable="false">
+                    <use href="#icono-salir"></use>
+                </svg>
+                Salir del equipo
+            </button>
+        </form>
 
-    <div class="row mt-3">
-        <div class="col">
-            <a th:href="@{/equipos}" class="btn btn-primary">
-                Volver
-            </a>
-        </div>
+        <form th:unless="${pertenece}"
+              th:action="@{/equipos/{id}/unirse(id=${equipo.id})}"
+              method="post">
+            <button type="submit" class="btn btn-success">
+                <svg class="icono" aria-hidden="true" focusable="false">
+                    <use href="#icono-unirse"></use>
+                </svg>
+                Unirme al equipo
+            </button>
+        </form>
+
+        <a th:href="@{/equipos}" class="btn btn-primary">
+            <svg class="icono" aria-hidden="true" focusable="false">
+                <use href="#icono-volver"></use>
+            </svg>
+            Volver
+        </a>
     </div>
 
 </div>

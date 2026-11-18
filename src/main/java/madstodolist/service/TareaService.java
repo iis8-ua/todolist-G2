@@ -1,5 +1,6 @@
 package madstodolist.service;
 
+import madstodolist.model.Prioridad;
 import madstodolist.model.Tarea;
 import madstodolist.repository.TareaRepository;
 import madstodolist.model.Usuario;
@@ -16,7 +17,6 @@ import java.util.Collections;
 import java.util.List;
 
 import java.util.stream.Collectors;
-
 
 @Service
 public class TareaService {
@@ -62,18 +62,21 @@ public class TareaService {
     public TareaData findById(Long tareaId) {
         logger.debug("Buscando tarea " + tareaId);
         Tarea tarea = tareaRepository.findById(tareaId).orElse(null);
-        if (tarea == null) return null;
-        else return modelMapper.map(tarea, TareaData.class);
+        if (tarea == null)
+            return null;
+        else
+            return modelMapper.map(tarea, TareaData.class);
     }
 
     @Transactional
-    public TareaData modificaTarea(Long idTarea, String nuevoTitulo) {
+    public TareaData modificaTarea(Long idTarea, String nuevoTitulo, Prioridad nuevaPrioridad) {
         logger.debug("Modificando tarea " + idTarea + " - " + nuevoTitulo);
         Tarea tarea = tareaRepository.findById(idTarea).orElse(null);
         if (tarea == null) {
             throw new TareaServiceException("No existe tarea con id " + idTarea);
         }
         tarea.setTitulo(nuevoTitulo);
+        tarea.setPrioridad(nuevaPrioridad);
         tarea = tareaRepository.save(tarea);
         return modelMapper.map(tarea, TareaData.class);
     }
