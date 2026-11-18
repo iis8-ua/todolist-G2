@@ -1,34 +1,65 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments :: head (titulo='Mi cuenta')"></head>
 
 <body>
-    <div th:replace="fragments :: menu"></div>
-    <h2>Mi cuenta</h2>
-    <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${!#strings.isEmpty(mensaje)}">
-        <span th:text="${mensaje}"></span>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+
+<div th:replace="fragments :: iconos"></div>
+<div th:replace="fragments :: menu"></div>
+
+<div class="container py-4">
+
+    <div class="page-header">
+        <h2>Mi cuenta</h2>
+        <p class="page-subtitle mb-0">Consulta y actualiza los datos de tu perfil.</p>
     </div>
-    <p>
-        <strong>Correo electrónico:</strong>
-        <span th:text="${usuario.email}"></span>
-    </p>
-    <p>
-        <strong>Nombre:</strong>
-        <span th:text="${usuario.nombre}"></span>
-    </p>
-    <p>
-        <strong>Fecha de nacimiento:</strong>
-        <span id="fechaNacimiento"
-              th:text="${usuario.fechaNacimiento != null ? #dates.format(usuario.fechaNacimiento, 'dd/MM/yyyy'): '-'}">
-        </span>
-    </p>
-    <a th:href="@{/cuenta/editar}" class="btn btn-primary">Editar perfil</a>
-    <a th:href="@{/usuarios/{id}/tareas(id=${usuarioLogueado.id})}"
-       class="btn btn-primary">Volver</a>
-    <div th:replace="fragments::javascript"/>
+
+    <div class="flash-messages">
+        <div class="alert alert-success alert-dismissible fade show" role="alert"
+             th:if="${!#strings.isEmpty(mensaje)}">
+            <span th:text="${mensaje}"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="panel info-card">
+        <dl class="row info-list mb-0">
+            <dt class="col-sm-4">Correo electrónico</dt>
+            <dd class="col-sm-8" th:text="${usuario.email}"></dd>
+
+            <dt class="col-sm-4">Nombre</dt>
+            <dd class="col-sm-8" th:text="${usuario.nombre}"></dd>
+
+            <dt class="col-sm-4">Fecha de nacimiento</dt>
+            <dd class="col-sm-8">
+                <span id="fechaNacimiento"
+                      th:text="${usuario.fechaNacimiento != null ? #dates.format(usuario.fechaNacimiento, 'dd/MM/yyyy'): '-'}">
+                </span>
+            </dd>
+        </dl>
+    </div>
+
+    <div class="page-actions">
+        <a th:href="@{/cuenta/editar}" class="btn btn-primary">
+            <svg class="icono" aria-hidden="true" focusable="false">
+                <use href="#icono-editar"></use>
+            </svg>
+            Editar perfil
+        </a>
+        <a th:href="@{/usuarios/{id}/tareas(id=${usuarioLogueado.id})}" class="btn btn-primary">
+            <svg class="icono" aria-hidden="true" focusable="false">
+                <use href="#icono-volver"></use>
+            </svg>
+            Volver
+        </a>
+    </div>
+
+</div>
+
+<div th:replace="fragments::javascript"></div>
+
 </body>
 </html>

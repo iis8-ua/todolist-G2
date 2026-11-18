@@ -1,25 +1,30 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments :: head(titulo='Acceso no autorizado')"></head>
 
 <body>
 
-<div class="container-fluid">
-  <div class="text-center mt-5">
+<div th:replace="fragments :: iconos"></div>
 
-    <h1>403</h1>
-    <h2>Acceso no autorizado</h2>
+<div class="container py-5">
+    <div class="text-center mt-5">
 
-    <div class="alert alert-danger mt-4">
-      No tienes permisos suficientes para acceder a esta página.
+        <h1 class="display-4 font-weight-bold">403</h1>
+        <h2>Acceso no autorizado</h2>
+
+        <div class="alert alert-danger mt-4 mx-auto" style="max-width: 640px;">
+            No tienes permisos suficientes para acceder a esta página.
+        </div>
+
+        <a th:href="@{/}" class="btn btn-primary mt-2">
+            <svg class="icono" aria-hidden="true" focusable="false">
+                <use href="#icono-inicio"></use>
+            </svg>
+            Volver al inicio
+        </a>
+
     </div>
-
-    <a th:href="@{/}" class="btn btn-primary">
-      Volver al inicio
-    </a>
-
-  </div>
 </div>
 
 <div th:replace="fragments::javascript"></div>

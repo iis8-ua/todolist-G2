@@ -1,24 +1,44 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments :: head (titulo='Login')"></head>
+<head th:replace="fragments :: head (titulo='Nueva tarea')"></head>
 
 <body>
+
+<div th:replace="fragments :: iconos"></div>
 <div th:replace="fragments :: menu"></div>
-<div class="container-fluid">
 
-    <h2 th:text="'Nueva tarea para el usuario ' + ${usuario.getNombre()}"></h2>
+<div class="container py-4">
 
-    <form method="post" th:action="@{/usuarios/{id}/tareas/nueva(id=${usuario.id})}" th:object="${tareaData}">
-        <div class="col-6">
-        <div class="form-group">
-            <label for="titulo">Título de la tarea:</label>
-            <input class="form-control" id="titulo" name="titulo" required th:field="*{titulo}" type="text"/>
-        </div>
-        <button class="btn btn-primary" type="submit">Crear tarea</button>
-        <a class="btn btn-link" th:href="@{/usuarios/{id}/tareas(id=${usuario.id})}">Cancelar</a>
-        </div>
-    </form>
+    <div class="page-header">
+        <h2 th:text="'Nueva tarea para el usuario ' + ${usuario.getNombre()}">Nueva tarea</h2>
+        <p class="page-subtitle mb-0">Añade una tarea a tu listado personal.</p>
+    </div>
+
+    <div class="form-card">
+        <form method="post" th:action="@{/usuarios/{id}/tareas/nueva(id=${usuario.id})}" th:object="${tareaData}">
+            <div class="form-group">
+                <label for="titulo">Título de la tarea:</label>
+                <input class="form-control" id="titulo" name="titulo" required th:field="*{titulo}" type="text"/>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit">
+                    <svg class="icono" aria-hidden="true" focusable="false">
+                        <use href="#icono-guardar"></use>
+                    </svg>
+                    Crear tarea
+                </button>
+                <a class="btn btn-link" th:href="@{/usuarios/{id}/tareas(id=${usuario.id})}">
+                    <svg class="icono" aria-hidden="true" focusable="false">
+                        <use href="#icono-cancelar"></use>
+                    </svg>
+                    Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+
 </div>
 
 <div th:replace="fragments::javascript"/>

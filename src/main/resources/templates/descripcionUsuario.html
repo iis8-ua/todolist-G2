@@ -1,50 +1,43 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments :: head(titulo='Descripción de usuario')"></head>
 
 <body>
 
-<div class="container-fluid">
-    <div th:replace="fragments :: menu"></div>
-    <div class="row mt-3">
-        <div class="col">
-            <h2>Descripción de usuario</h2>
-        </div>
+<div th:replace="fragments :: iconos"></div>
+<div th:replace="fragments :: menu"></div>
+
+<div class="container py-4">
+
+    <div class="page-header">
+        <h2>Descripción de usuario</h2>
+        <p class="page-subtitle mb-0">Datos de la cuenta seleccionada.</p>
     </div>
 
-    <div class="row mt-3">
-        <div class="col">
+    <div class="panel info-card">
+        <dl class="row info-list mb-0">
+            <dt class="col-sm-4">Identificador</dt>
+            <dd class="col-sm-8" th:text="${usuario.id}"></dd>
 
-            <p>
-                <strong>Identificador:</strong>
-                <span th:text="${usuario.id}"></span>
-            </p>
+            <dt class="col-sm-4">Correo electrónico</dt>
+            <dd class="col-sm-8" th:text="${usuario.email}"></dd>
 
-            <p>
-                <strong>Correo electrónico:</strong>
-                <span th:text="${usuario.email}"></span>
-            </p>
+            <dt class="col-sm-4">Nombre</dt>
+            <dd class="col-sm-8" th:text="${usuario.nombre}"></dd>
 
-            <p>
-                <strong>Nombre:</strong>
-                <span th:text="${usuario.nombre}"></span>
-            </p>
-
-            <p>
-                <strong>Fecha de nacimiento:</strong>
-                <span th:text="${usuario.fechaNacimiento}"></span>
-            </p>
-
-        </div>
+            <dt class="col-sm-4">Fecha de nacimiento</dt>
+            <dd class="col-sm-8" th:text="${usuario.fechaNacimiento}"></dd>
+        </dl>
     </div>
 
-    <div class="row mt-3">
-        <div class="col">
-            <a th:href="@{/registrados}" class="btn btn-primary">
-                Volver
-            </a>
-        </div>
+    <div class="page-actions">
+        <a th:href="@{/registrados}" class="btn btn-primary">
+            <svg class="icono" aria-hidden="true" focusable="false">
+                <use href="#icono-volver"></use>
+            </svg>
+            Volver
+        </a>
     </div>
 
 </div>
